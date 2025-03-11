@@ -1,0 +1,78 @@
+@import '../../global/global.css';
+@import './partials/logo-container.css';
+@import './partials/form-container.css';
+@import './partials/biometric-auth.css';
+@import './partials/responsive.css';
+
+body {
+    width: 360px;
+    margin: 0 auto;
+    height: 100dvh;
+    background-color: var(--cor-preto);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* border-color: 100px black solid; */
+}
+
+.container {
+    background-color: var(--cor-branco);
+    width: 360px;
+    height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+}
+
+/* modo escuro nativo num dispositivo */
+/* @media (prefers-color-scheme: dark) {
+    altera de branco p preto 
+    :root {
+        --cor-branco: #fff;
+        --cor-preto: #000;
+    }
+
+    body {
+        background-color: var(--cor-preto);
+    }
+
+    label {
+        color: var(--cor-branco);
+    }
+
+    .biometric-auth img {
+        filter: invert(1);
+    }
+
+    body::before {
+        background-color: var(--cor-preto);
+        
+    }
+} */
+
+/* firula pra apresentar so em telefone */
+/* @media screen and (min-width: 450px) {
+    body::before {
+        content: "Desculpe, disponível apenas na versão mobile";
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        width: 100%;
+        font-size: 1.2rem;
+        font-weight: bold;
+        text-align: center;
+        padding: 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        
+    }
+
+    body * {
+        display: none;
+    }
+} */

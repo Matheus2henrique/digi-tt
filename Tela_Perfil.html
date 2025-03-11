@@ -1,0 +1,85 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil</title>
+    <link rel="stylesheet" href="styleDados.css">
+</head>
+<body>
+
+    <div class="container">
+        <footer class="footer">
+            <img class="logo" src="LogoDigiPass.png" width="80px">
+            <h1>DigiPass</h1>
+        </footer>
+    
+        <h4 class="cad">Cadastro</h4>
+    
+        <form>
+            <label class="nome" for="nome">Nome:</label><br>
+            <input type="text" id="nome" name="nome" placeholder="Joao"><br><br>
+    
+            <label class="cpf" for="CPF">CPF:</label><br>
+            <input type="text" id="CPF" name="CPF" placeholder="000.000.000-00"><br><br>
+    
+            <label class="dtNasc" for="dtNasc">Data de Nascimento:</label><br>
+            <input type="date" id="dtNasc" name="dtNasc" placeholder="dd/mm/aaaa"><br><br>
+    
+            <label class="telCelula" for="telCelula">Telefone Celular:</label><br>
+            <input type="tel" id="telCelula" name="telCelula" placeholder="(00) 0000-0000"><br><br>
+    
+            <label class="telFixo" for="telFixo">Telefone Fixo:</label><br>
+            <input type="tel" id="telFixo" name="telFixo" placeholder="(00) 0000-0000"><br><br>
+    
+            <label class="email" for="email">E-mail:</label><br>
+            <input type="email" id="email" name="email" placeholder="joao@gmail.com"><br><br>
+    
+        </form>
+    
+    <div class="botao">
+    <a href="Tela_Editar_Perfil.html"> 
+          <button class="alterar">
+            <img src="Icons/alterar.png" width="20px"> 
+            <h5> Alterar</h5>
+        </button>
+    </a>
+    </div>
+    
+     <a href="Tela_Excluir_Perfil.html"> 
+        <button onclick="abrirMsg()" class="excluir">
+              <img src="Icons/simbolo-x.png" width="20px"> 
+            <h5> Excluir</h5>
+        </button>
+     </a> 
+        <div class="js" id="js">
+            <div class="msg" id="mgs">
+                <h4>Tem certeza que quer excluir seu cadastro?</h4>
+                <form>
+                    <input class="sim" id="sim" type="button" value="Sim">
+                    <input class="nao" id="nao" type="button" value="Não">
+                </form>
+            </div>
+    
+            <script>
+                function abrirMsg(){
+                    const conf = document.getElementById('js')
+                    conf.classList.add('abrir')
+    
+                    conf.addEventListener('click', (e) => {
+                        if(e.target.id === 'nao'){
+                            conf.classList.remove("abrir")
+                        }
+                        else{
+                            conf.classList.add("abrir")
+                            window.location.href = 'index.html'
+                        }
+                    })
+                }  
+            </script>
+        </div>
+    </div>
+    
+
+</body>
+</html> -->

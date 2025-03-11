@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completar Cadastro</title>
+    <link rel="stylesheet" href="cadastro.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <img class="logo" src="./src/img/global/LogoDigiPass.png" width="80px">
+            <h1>DigiPass</h1>
+        </header>
+
+        <form class="form-container" id="completeRegisterForm">
+            <label for="dataNascimento">Data de Nascimento:</label>
+            <input type="date" id="dataNascimento" name="data_nascimento" required>
+
+            <label for="telefone">Telefone:</label>
+            <input type="text" id="telefone" name="telefone" required>
+
+            <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" required>
+
+            <label for="logradouro">Logradouro:</label>
+            <input type="text" id="logradouro" name="logradouro" required>
+
+            <label for="numero">Número:</label>
+            <input type="text" id="numero" name="numero" required>
+
+            <label for="complemento">Complemento:</label>
+            <input type="text" id="complemento" name="complemento">
+
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro" required>
+
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade" required>
+
+            <label for="estado">Estado:</label>
+            <input type="text" id="estado" name="estado" maxlength="2" required>
+
+            <button type="submit" class="btn">Salvar</button>
+        </form>
+
+        <div id="mensagem" class="mensagem"></div>
+    </div>
+
+
+    <script>
+        window.onload = function () {
+            const email = localStorage.getItem('email');
+            console.log("Email carregado:", email);
+
+            if (!email) {
+                console.log('Nenhum email encontrado no localStorage.');
+                return;
+            }
+
+            fetch(`http://localhost:3033/BuscarUsuario?email=${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        console.log('Nenhum dado encontrado para este usuário.');
+                        return;
+                    }
+
+                    document.getElementById('dataNascimento').value = data.data_nascimento || '';
+                    document.getElementById('telefone').value = data.telefone || '';
+                    document.getElementById('cep').value = data.cep || '';
+                    document.getElementById('logradouro').value = data.logradouro || '';
+                    document.getElementById('numero').value = data.numero || '';
+                    document.getElementById('complemento').value = data.complemento || '';
+                    document.getElementById('bairro').value = data.bairro || '';
+                    document.getElementById('cidade').value = data.cidade || '';
+                    document.getElementById('estado').value = data.estado || '';
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar dados do usuário:', error);
+                });
+        };
+
+        document.getElementById('completeRegisterForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const email = localStorage.getItem('email');
+            if (!email) {
+                document.getElementById('mensagem').textContent = 'Você não está logado. Favor efetuar login.';
+                return;
+            }
+
+            const data = {
+                email: email,
+                data_nascimento: document.getElementById('dataNascimento').value,
+                telefone: document.getElementById('telefone').value,
+                cep: document.getElementById('cep').value,
+                logradouro: document.getElementById('logradouro').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value,
+                bairro: document.getElementById('bairro').value,
+                cidade: document.getElementById('cidade').value,
+                estado: document.getElementById('estado').value
+            };
+
+            fetch('http://localhost:3033/SalvarCadastro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                document.getElementById('mensagem').textContent = result.message;
+                console.log(result);
+                document.getElementById('completeRegisterForm').reset(); // Limpa o formulário
+            })
+            .catch(error => {
+                console.error('Erro ao salvar cadastro:', error);
+                document.getElementById('mensagem').textContent = 'Erro ao salvar cadastro. Tente novamente.';
+            });
+        });
+    </script>
+    <!-- <script>
+        window.onload = function () {
+            const email = localStorage.getItem('email');
+            console.log("Email carregado:", email);
+
+            if (!email) {
+                console.log('Nenhum email encontrado no localStorage.');
+                return;
+            }
+
+            fetch(`http://localhost:3033/BuscarUsuario?email=${email}`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.message) {
+                        console.log('Nenhum dado encontrado para este usuário.');
+                        return;
+                    }
+
+                    document.getElementById('dataNascimento').value = data.data_nascimento || '';
+                    document.getElementById('telefone').value = data.telefone || '';
+                    document.getElementById('cep').value = data.cep || '';
+                    document.getElementById('logradouro').value = data.logradouro || '';
+                    document.getElementById('numero').value = data.numero || '';
+                    document.getElementById('complemento').value = data.complemento || '';
+                    document.getElementById('bairro').value = data.bairro || '';
+                    document.getElementById('cidade').value = data.cidade || '';
+                    document.getElementById('estado').value = data.estado || '';
+                })
+                .catch(error => {
+                    console.error('Erro ao buscar dados do usuário:', error);
+                });
+        };
+
+        document.getElementById('completeRegisterForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const email = localStorage.getItem('email');
+            if (!email) {
+                alert('Você não está logado. Favor efetuar login.');
+                return;
+            }
+
+            const data = {
+                email: email,
+                data_nascimento: document.getElementById('dataNascimento').value,
+                telefone: document.getElementById('telefone').value,
+                cep: document.getElementById('cep').value,
+                logradouro: document.getElementById('logradouro').value,
+                numero: document.getElementById('numero').value,
+                complemento: document.getElementById('complemento').value,
+                bairro: document.getElementById('bairro').value,
+                cidade: document.getElementById('cidade').value,
+                estado: document.getElementById('estado').value
+            };
+
+            fetch('http://localhost:3033/SalvarCadastro', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(result => {
+                alert(result.message);
+                console.log(result);
+            })
+            .catch(error => {
+                console.error('Erro ao salvar cadastro:', error);
+            });
+        });
+    </script> -->
+</body>
+</html>

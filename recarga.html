@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Completar Cadastro</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <link rel="stylesheet" href="recarga.css">
+</head>
+<body>
+    <div class="container" id="container">
+        <header class="header">
+            <img class="logo" src="./src/img/global/LogoDigiPass.png" width="80px" alt="Logo DigiPass">
+            <h1>DigiPass</h1>
+        </header>
+
+        <form class="form-container" id="recargaForm">
+            <div class="op">
+                <div class="info-recarga">
+                    <h3>Quanto você deseja recarregar?</h3>
+                    <p>O valor mínimo é R$ 10,00 e o máximo é R$ 500,00.</p>
+                </div>
+
+                <div class="input-group">
+                    <label for="vlrRecarga">Valor da Recarga:</label>
+                    <input type="text" id="vlrRecarga" name="vlrRecarga" required placeholder="R$ 00,00">
+                </div>
+            </div>
+
+            <div class="qr-code hidden" id="qrContainer">
+                <div id="qrcode"></div>
+            </div>
+
+            <button type="submit" class="btn2">Confirmar</button>
+        </form>
+    </div>
+
+    <script defer src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <script>
+        document.getElementById('recargaForm').addEventListener('submit', async (event) => {
+            event.preventDefault();
+
+            let valorRecarga = document.getElementById('vlrRecarga').value.trim().replace("R$", "").replace(",", ".");
+            valorRecarga = parseFloat(valorRecarga);
+
+            if (isNaN(valorRecarga) || valorRecarga < 10 || valorRecarga > 500) {
+                alert("Por favor, insira um valor entre R$ 10,00 e R$ 500,00.");
+                return;
+            }
+
+            const idUsuario = 1; 
+
+            try {
+                const response = await fetch("http://localhost:3032/recarga", {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+                    body: JSON.stringify({ id_usuario: idUsuario, valor: valorRecarga })
+                });
+
+                const data = await response.json();
+                alert(data.message);
+
+            } catch (error) {
+                console.error("Erro ao enviar recarga:", error);
+                alert("Erro ao processar a recarga.");
+            }
+        });
+
+        function generateQRCode(conteudo) {
+            let qrcodeDiv = document.getElementById('qrcode');
+            qrcodeDiv.innerHTML = ''; 
+
+            new QRCode(qrcodeDiv, {
+                text: conteudo,
+                width: 200,
+                height: 200
+            });
+        }
+    </script>
+</body>
+</html>

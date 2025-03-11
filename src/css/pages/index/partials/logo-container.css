@@ -1,0 +1,18 @@
+/* logo do app */
+.logo-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 60px;
+}
+
+/* confg. img logo */
+.logo-container img {
+    width: 60px;
+}
+
+/* confg. texto logo */
+.logo-container h1 {
+    font-size: 48px;
+    font-style: italic;
+    color: #67B0B4;
+}

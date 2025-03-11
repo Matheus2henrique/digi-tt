@@ -1,0 +1,12 @@
+@import './fonts.css';
+@import '';
+
+:root {
+    --cor-branco: #fff;
+    --cor-preto: #000;
+    --cor-app: #67B0B4;
+    --cor-bg-input: #f3f3f3;
+    --cor-border-input: #ccc;
+
+    --fonte-padrao: "Open Sans", sans-serif;
+}
